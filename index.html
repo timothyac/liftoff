@@ -9,11 +9,14 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="liftoff">
+    <div id="liftoff" class="liftoff">
       <h3>liftoff in:</h3>
       <div class="countdown">
-        <span class="bars">|||</span> <span class="spacer"></span>
-        <span class="text">T</span> <span class="spacer"></span>
+        <span class="bars faded">|||</span>
+        <span class="spacer"></span>
+
+        <span class="text">T</span>
+        <span class="spacer"></span>
         <span class="text">-</span>
         <span class="spacer"></span>
 
@@ -22,12 +25,19 @@
           <span id="two" class="text hidden">2</span>
           <span id="one" class="text hidden">1</span>
         </div>
+
         <span class="spacer"></span>
-        <span class="bars">|||</span>
+        <span class="bars faded">|||</span>
       </div>
+    </div>
+    <div id="fly-safe" class="fly-safe display-none">
+      <span> fly safe </span>
     </div>
   </body>
   <script type="module">
+    // One second feels just two fast
+    const FAKE_SEC = 1100;
+
     // Countdown numbers
     const nums = [
       document.getElementById("three"),
@@ -45,15 +55,35 @@
           // Technically don't need this check for just 3
           // numbers, but if I add more in the future its nice
           if (nextNumber) {
-            currentNumber.classList = "old";
+            currentNumber.classList = "faded";
             nextNumber.classList = "text";
           }
           resolve();
-          // One second feels just two fast
-        }, 1100);
+        }, FAKE_SEC);
       });
     }
 
-    showNextNumber(0).then(() => showNextNumber(1));
+    function brightenBars() {
+      const bars = [...document.getElementsByClassName("bars")];
+
+      bars.forEach((bar) => {
+        bar.classList = "bars";
+      });
+    }
+
+    function showFlySafe() {
+      const liftoff = document.getElementById("liftoff");
+      const flySafe = document.getElementById("fly-safe");
+
+      setTimeout(() => {
+        liftoff.classList = "display-none";
+        flySafe.classList = "fly-safe";
+      }, FAKE_SEC);
+    }
+
+    showNextNumber(0)
+      .then(() => showNextNumber(1))
+      .then(() => brightenBars())
+      .then(() => showFlySafe());
   </script>
 </html>
