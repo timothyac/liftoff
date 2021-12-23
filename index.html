@@ -28,29 +28,32 @@
     </div>
   </body>
   <script type="module">
-    const three = document.getElementById("three");
-    const two = document.getElementById("two");
-    const one = document.getElementById("one");
+    // Countdown numbers
+    const nums = [
+      document.getElementById("three"),
+      document.getElementById("two"),
+      document.getElementById("one"),
+    ];
 
-    const nums = [three, two, one];
-
+    // Takes in array position and adds class
     function showNextNumber(num) {
       const currentNumber = nums[num];
       const nextNumber = nums[num + 1];
 
       return new Promise((resolve, reject) => {
         setTimeout(() => {
+          // Technically don't need this check for just 3
+          // numbers, but if I add more in the future its nice
           if (nextNumber) {
             currentNumber.classList = "old";
             nextNumber.classList = "text";
           }
           resolve();
+          // One second feels just two fast
         }, 1100);
       });
     }
 
-    showNextNumber(0)
-      .then(() => showNextNumber(1))
-      .then(() => showNextNumber(2));
+    showNextNumber(0).then(() => showNextNumber(1));
   </script>
 </html>
