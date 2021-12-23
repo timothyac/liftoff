@@ -64,6 +64,7 @@
     }
 
     function brightenBars() {
+      // Html collection workaround
       const bars = [...document.getElementsByClassName("bars")];
 
       bars.forEach((bar) => {
@@ -82,11 +83,13 @@
     }
 
     function goToOrbit() {
+      // TP back to my site until I find another cool use
       setTimeout(() => {
         window.location.href = "https://timothyac.dev";
       }, 2000);
     }
 
+    // Launch sequence
     showNextNumber(0)
       .then(() => showNextNumber(1))
       .then(() => brightenBars())
