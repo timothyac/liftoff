@@ -86,9 +86,20 @@ html {
   gap: 32px;
 }
 
-span.bars,
-span.text {
+.bars,
+.text {
   font-family: "Archivo Black", sans-serif;
+}
+
+#three,
+#two {
+  position: absolute;
+}
+
+.text .old {
+  color: #ffffff10;
+  font-family: inherit;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.288);
 }
 
 .bars {
@@ -122,4 +133,8 @@ h3 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.hidden {
+  visibility: hidden;
 }

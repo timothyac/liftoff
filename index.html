@@ -16,10 +16,41 @@
         <span class="text">T</span> <span class="spacer"></span>
         <span class="text">-</span>
         <span class="spacer"></span>
-        <span class="text">1</span>
+
+        <div class="text">
+          <span id="three" class="text">3</span>
+          <span id="two" class="text hidden">2</span>
+          <span id="one" class="text hidden">1</span>
+        </div>
         <span class="spacer"></span>
         <span class="bars">|||</span>
       </div>
     </div>
   </body>
+  <script type="module">
+    const three = document.getElementById("three");
+    const two = document.getElementById("two");
+    const one = document.getElementById("one");
+
+    const nums = [three, two, one];
+
+    function showNextNumber(num) {
+      const currentNumber = nums[num];
+      const nextNumber = nums[num + 1];
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (nextNumber) {
+            currentNumber.classList = "old";
+            nextNumber.classList = "text";
+          }
+          resolve();
+        }, 1100);
+      });
+    }
+
+    showNextNumber(0)
+      .then(() => showNextNumber(1))
+      .then(() => showNextNumber(2));
+  </script>
 </html>
