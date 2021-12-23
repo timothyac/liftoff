@@ -81,9 +81,16 @@
       }, FAKE_SEC);
     }
 
+    function goToOrbit() {
+      setTimeout(() => {
+        window.location.href = "https://timothyac.dev";
+      }, 2000);
+    }
+
     showNextNumber(0)
       .then(() => showNextNumber(1))
       .then(() => brightenBars())
-      .then(() => showFlySafe());
+      .then(showFlySafe)
+      .then(() => goToOrbit());
   </script>
 </html>
