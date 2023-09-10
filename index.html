@@ -21,7 +21,9 @@
         <span class="spacer"></span>
 
         <div class="text">
-          <span id="three" class="text">3</span>
+          <span id="five" class="text">5</span>
+          <span id="four" class="text hidden">4</span>
+          <span id="three" class="text hidden">3</span>
           <span id="two" class="text hidden">2</span>
           <span id="one" class="text hidden">1</span>
         </div>
@@ -33,6 +35,9 @@
     <div id="fly-safe" class="fly-safe display-none">
       <span> fly safe </span>
     </div>
+    <div id="commander" class="fly-safe display-none">
+      <span> commander </span>
+    </div>
   </body>
   <script type="module">
     // One second feels just two fast
@@ -40,6 +45,8 @@
 
     // Countdown numbers
     const nums = [
+      document.getElementById("five"),
+      document.getElementById("four"),
       document.getElementById("three"),
       document.getElementById("two"),
       document.getElementById("one"),
@@ -47,6 +54,7 @@
 
     // Takes in array position and adds class
     function showNextNumber(num) {
+      const secondLastNumber = nums[num - 2];
       const currentNumber = nums[num];
       const nextNumber = nums[num + 1];
 
@@ -54,8 +62,17 @@
         setTimeout(() => {
           // Technically don't need this check for just 3
           // numbers, but if I add more in the future its nice
+
+          // Fade the current number
+          currentNumber.classList = "faded";
+
+          // We want to hide a number once it becomes 2 away from the current
+          if (secondLastNumber) {
+            secondLastNumber.classList = "text hidden";
+          }
+
+          // Display the next number
           if (nextNumber) {
-            currentNumber.classList = "faded";
             nextNumber.classList = "text";
           }
           resolve();
@@ -76,9 +93,22 @@
       const liftoff = document.getElementById("liftoff");
       const flySafe = document.getElementById("fly-safe");
 
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          liftoff.classList = "display-none";
+          flySafe.classList = "fly-safe";
+          resolve();
+        }, FAKE_SEC);
+      });
+    }
+
+    function showCommander() {
+      const flySafe = document.getElementById("fly-safe");
+      const commander = document.getElementById("commander");
+
       setTimeout(() => {
-        liftoff.classList = "display-none";
-        flySafe.classList = "fly-safe";
+        flySafe.classList = "display-none";
+        commander.classList = "fly-safe";
       }, FAKE_SEC);
     }
 
@@ -92,8 +122,11 @@
     // Launch sequence
     showNextNumber(0)
       .then(() => showNextNumber(1))
+      .then(() => showNextNumber(2))
+      .then(() => showNextNumber(3))
       .then(() => brightenBars())
       .then(showFlySafe)
+      .then(showCommander)
       .then(() => goToOrbit());
   </script>
 </html>

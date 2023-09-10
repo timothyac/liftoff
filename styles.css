@@ -107,6 +107,8 @@ html {
   gap: 32px;
 }
 
+#five,
+#four,
 #three,
 #two {
   position: absolute;
